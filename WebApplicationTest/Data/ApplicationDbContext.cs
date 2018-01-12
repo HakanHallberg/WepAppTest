@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WebApplicationTest.Models;
+using WebApplicationTest.Seeder;
 
 namespace WebApplicationTest.Data
 {
@@ -22,5 +23,9 @@ namespace WebApplicationTest.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
+
+        public DbSet<Artist> Artists { get; set; }
+        public DbSet<Song> Songs { get; set; }
+        
     }
 }
