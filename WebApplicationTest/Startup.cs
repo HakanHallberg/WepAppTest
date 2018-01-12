@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using WebApplicationTest.Data;
 using WebApplicationTest.Models;
 using WebApplicationTest.Services;
+using WebApplicationTest.Seeder;
 
 namespace WebApplicationTest
 {
@@ -40,7 +41,7 @@ namespace WebApplicationTest
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -63,6 +64,8 @@ namespace WebApplicationTest
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            DbSeeder.Seed(context, userManager, roleManager);
         }
     }
 }
