@@ -42,6 +42,8 @@ namespace WebApplicationTest.Seeder
             var magaluf = new Song { SongName = "Magaluf", Artist = orup };
             if (!context.Songs.Any(a => a.SongName == "Magaluf"))
                 context.Songs.Add(magaluf);
+
+            context.SaveChanges();
         }
     }
 }
