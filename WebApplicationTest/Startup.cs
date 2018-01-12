@@ -62,7 +62,7 @@ namespace WebApplicationTest
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}/{slugg?}");
             });
 
             DbSeeder.Seed(context, userManager, roleManager);

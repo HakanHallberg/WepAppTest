@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using WebApplicationTest.Data;
 using WebApplicationTest.Models;
 
@@ -13,10 +14,12 @@ namespace WebApplicationTest.Controllers
     public class SongsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<ArtistsController> _logger;
 
-        public SongsController(ApplicationDbContext context)
+        public SongsController(ApplicationDbContext context, ILogger<ArtistsController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: Songs
@@ -28,8 +31,10 @@ namespace WebApplicationTest.Controllers
         // GET: Songs
         public async Task<IActionResult> SongsByArtist(int id)
         {
-            
+            Artist artist = _context.Artists.Single(a => a.ArtistID == id);
+            _logger.LogInformation("Song written by " + artist.ArtistName.ToString());
             return View("Index", await _context.Songs.Where(a => a.ArtistID == id).Include(s => s.Artist).ToListAsync());
+            
         }
 
         // GET: Songs/Details/5

@@ -25,9 +25,9 @@
                 @Html.DisplayFor(modelItem => item.ArtistName)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ArtistID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ArtistID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ArtistID">Delete</a> |
+                <a asp-action="Edit" asp-route-id="@item.ArtistID" asp-route-slugg="@WebApplicationTest.Utils.Slugg.Slugify(item.ArtistName)">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ArtistID" asp-route-slugg="@WebApplicationTest.Utils.Slugg.Slugify(item.ArtistName)">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ArtistID" asp-route-slugg="@WebApplicationTest.Utils.Slugg.Slugify(item.ArtistName)">Delete</a> |
                 <a asp-controller="Songs" asp-action="SongsByArtist" asp-route-id="@item.ArtistID">Songs</a>
             </td>
         </tr>

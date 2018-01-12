@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using WebApplicationTest.Data;
 using WebApplicationTest.Models;
 
@@ -13,10 +14,12 @@ namespace WebApplicationTest.Controllers
     public class ArtistsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<ArtistsController> _logger;
 
-        public ArtistsController(ApplicationDbContext context)
+        public ArtistsController(ApplicationDbContext context, ILogger<ArtistsController>logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: Artists
