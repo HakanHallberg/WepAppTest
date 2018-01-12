@@ -25,6 +25,12 @@ namespace WebApplicationTest.Controllers
             var applicationDbContext = _context.Songs.Include(s => s.Artist);
             return View(await applicationDbContext.ToListAsync());
         }
+        // GET: Songs
+        public async Task<IActionResult> SongsByArtist(int id)
+        {
+            
+            return View("Index", await _context.Songs.Where(a => a.ArtistID == id).Include(s => s.Artist).ToListAsync());
+        }
 
         // GET: Songs/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -51,6 +57,11 @@ namespace WebApplicationTest.Controllers
             ViewData["ArtistID"] = new SelectList(_context.Artists, "ArtistID", "ArtistID");
             return View();
         }
+        public IActionResult CreateByArtist(int id)
+        {
+            Song newSong = new Song { ArtistID = id };
+            return View("create", newSong);
+        }
 
         // POST: Songs/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -63,7 +74,7 @@ namespace WebApplicationTest.Controllers
             {
                 _context.Add(song);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { id = song.Artist});
             }
             ViewData["ArtistID"] = new SelectList(_context.Artists, "ArtistID", "ArtistID", song.ArtistID);
             return View(song);
